@@ -5,6 +5,6 @@ ya manos droppem ai ideias/codigo, assim em vez de irmos trabalhar p mercadona v
 ## //IDEAS//
   - hornyBot
   - twitter integration idk
-  - music shit (?)
+  - music shit (DONE)
 
 ## //CODE//
