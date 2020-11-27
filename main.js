@@ -3,11 +3,12 @@ var dir = 'D:/Downloads/PROGRAMAS/DiscordBot/conabot10000'; //define working env
 const ytdl = require('ytdl-core');
 const { Player } = require('discord-player');
 const Discord = require('discord.js');          //modules
-var Priests = require('./module.js')            //custom module file, includes locations for various pics
+var Module = require('./module.js')            //custom module file, includes locations for various pics
 
 
-var aggrPriests = Priests.aggrPriests;
-var priestsarr = Priests.priestsarr;            //defining arrays for random pics
+var nojentos = Module.nojentos;
+var aggrPriests = Module.aggrPriests;
+var priestsarr = Module.priestsarr;            //defining arrays for random pics
 
 
 const client = new Discord.Client();        //discord bot client
@@ -112,6 +113,11 @@ client.on('message', async (msg) => {
         const attachment = new Discord.MessageAttachment(priestsarr[Math.floor(Math.random()*priestsarr.length)]);
         msg.channel.send(attachment);
     }
+    //grega-te td no pc mm
+    if(str.includes('!nojentos') && !user.bot){
+        const attachment = new Discord.MessageAttachment(nojentos[Math.floor(Math.random()*nojentos.length)]);
+        msg.channel.send(attachment);
+    }
 
     //REACTS
     if(str.includes('estudar')){
@@ -153,7 +159,10 @@ client.on('message', async (msg) => {
     if(str.includes('!kekw')){
        msg.channel.send('https://tenor.com/view/lol-risitas-haha-laught-jaja-gif-14980367');
     }
-    if(str.includes('!cona') && !user.bot){
+    if(str.includes('!conabot10000') || str.includes('!bot') || str.includes('!conabot')){
+       msg.reply('hey there ; ) https://tenor.com/view/drinking-smile-funny-smile-juice-old-man-gif-3865079');
+    }
+    else if(str.includes('!cona') && !user.bot){
        msg.reply('cona123 ya KKKKKKKKKKKKKKKKKKKKKKK');
     }
 
@@ -209,9 +218,12 @@ client.on('message', async (msg) => {
     if(str.includes('!skip') && !user.bot){                                              //!skip
         client.player.skip(msg);
     }
+    if(str.includes('!resume') && !user.bot){                                             //!stop
+        client.player.resume(msg);
+    }
     if(str.includes('!queue') && !user.bot){                                            //queue
         var queue = client.player.getQueue(msg).tracks;
-        var str = 'conabot10000 queue ya kkkkkkkkkkkkkkkkkkk\n`';
+        var str = '***conabot10000 queue ya kkkkkkkkkkkkkkkkkkk***\n`';
         for(var i=0;i<queue.length;i++){
             str = str.concat(`${i+1}.  `).concat(`${queue[i].title}`);
             var num=60-queue[i].title.length-queue[i].duration.length;
@@ -221,10 +233,7 @@ client.on('message', async (msg) => {
             str = str.concat(`${queue[i].duration}`).concat('\n');
         }
         str = str.concat('`');
-        const emb = new Discord.MessageEmbed()
-                .setColor("DARK_PURPLE")
-                .setTitle(`${str}`)
-        msg.channel.send(emb);
+        msg.channel.send(str);
     }
 });
 client.login('');
