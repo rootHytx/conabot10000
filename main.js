@@ -5,10 +5,10 @@ const { Player } = require('discord-player');
 const Discord = require('discord.js');          //modules
 var Module = require('./module.js')            //custom module file, includes locations for various pics
 
-
-var nojentos = Module.nojentos;
+var faculdade = Module.faculdade;
+var priestsarr = Module.priestsarr;
 var aggrPriests = Module.aggrPriests;
-var priestsarr = Module.priestsarr;            //defining arrays for random pics
+var nojentos = Module.nojentos;            //defining arrays for random pics
 
 
 const client = new Discord.Client();        //discord bot client
@@ -150,6 +150,47 @@ client.on('message', async (msg) => {
     if(str.includes('!bonk')){
        const attachment = new Discord.MessageAttachment('https://cdn.discordapp.com/attachments/757316096582746233/780825563005845565/BONK.png');
        msg.channel.send(attachment);
+    }
+
+    //FAC
+    if(str.includes('!fac') && !user.bot){
+        var sparkles = '✨';
+        const emb = new Discord.MessageEmbed()
+                .setColor("DARK_GOLD")
+                .setTitle(`${sparkles} ***links para deprimir*** ${sparkles}\n`)
+                .setDescription("```fix\n1º Ano\n\t1º Semestre - 1\n\t2º Semestre - 2\n2º Ano\n\t1º Semestre - 3\n\t2º Semestre - 4\n3º Ano\n\t1º Semestre - 5\n\t2º Semestre - 6```");
+        msg.channel.send(emb);
+        str='';
+        const collector = msg.channel.createMessageCollector((m) => m.author.id === msg.author.id, {
+            time: 60000,
+            errors: ['time']
+        });
+        collector.on('collect', ({ content }) => {
+            if(isNaN(content) || content<1 || content>6){
+                collector.stop('badAnswer');
+            }
+            else{
+                var map = faculdade[content-1];
+                console.log(map.keys());
+                const emb = new Discord.MessageEmbed()
+                        .setColor("DARK_GOLD")
+                        .setTitle('***Aqui vai oh morcoum:***')
+                for(let [key, value] of map){
+                    str = str.concat('```fix\n' + key + '```' + value + '\n\n');
+                }
+                emb.setDescription(str);
+                msg.channel.send(emb);
+                collector.stop();
+            }
+        });
+        collector.on('end', (collected, reason) => {
+            if (reason === 'time') {
+                msg.reply('estás na Disney tu puto, um mano aqui à espera e tu deixas-me pendurado mm...');
+            }
+            if(reason === 'badAnswer'){
+                msg.reply(`estás na Disney tu puto, eu pedi um número, não uma prova de TN caralho...`);
+            }
+        });
     }
 
     //MENTIONS
