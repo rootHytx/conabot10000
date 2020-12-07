@@ -5,6 +5,7 @@ const { Player } = require('discord-player');
 const Discord = require('discord.js');          //modules
 var Module = require('./module.js')            //custom module file, includes locations for various pics
 
+var hornydog = Module.hornydog;
 var faculdade = Module.faculdade;
 var priestsarr = Module.priestsarr;
 var aggrPriests = Module.aggrPriests;
@@ -15,6 +16,8 @@ const client = new Discord.Client();        //discord bot client
 const player = new Player(client);
 client.player = player;
 
+var msgsCommandArray = [];
+var audioCommandArray = [];
 var curMsg;
 var voiceServer;
 var bonk = 0;
@@ -77,7 +80,8 @@ client.player
             curMsg.channel.send(`olha fodi-me, toma ai o que aconteceu: ${error}`)
     }
 })
-client.on('message', async (msg) => {
+client.on('message', msg => {
+    console.log(msg.content);
     client.player.options.leaveOnEnd=false;
     curMsg = msg;
     var user = msg.author;                                       //who dis
@@ -94,6 +98,7 @@ client.on('message', async (msg) => {
                 .setThumbnail('https://avatars1.githubusercontent.com/u/29551985?s=460&u=b1bc4c0a1ba93ecf926200b3e697b39f479a50bb&v=4')
         msg.channel.send(emb);
     }
+    msgsCommandArray.push('!github');
 
     //SIN_COUNTER
     if(str.includes('cona') && !user.bot){
@@ -118,6 +123,7 @@ client.on('message', async (msg) => {
         const attachment = new Discord.MessageAttachment(nojentos[Math.floor(Math.random()*nojentos.length)]);
         msg.channel.send(attachment);
     }
+    msgsCommandArray.push('!nojentos');
 
     //REACTS
     if(str.includes('estudar')){
@@ -135,14 +141,17 @@ client.on('message', async (msg) => {
        const attachment = new Discord.MessageAttachment('https://2018.e-tech.pt/wp-content/uploads/2018/04/rog%C3%A9rioreis-458x458.jpg');
        msg.channel.send(attachment);
     }
+    msgsCommandArray.push('!autista');
     if(str.includes('!bruh')){
        const attachment = new Discord.MessageAttachment('9d5.png');
        msg.channel.send(attachment);
     }
+    msgsCommandArray.push('!bruh');
     if(str.includes('!puta')){
        const attachment = new Discord.MessageAttachment('TFM.jpg');
        msg.channel.send(attachment);
     }
+    msgsCommandArray.push('!puta');
     if(str.includes('rita ribeiro')){
        const attachment = new Discord.MessageAttachment('245609.jpg');
        msg.channel.send(attachment);
@@ -151,6 +160,11 @@ client.on('message', async (msg) => {
        const attachment = new Discord.MessageAttachment('https://cdn.discordapp.com/attachments/757316096582746233/780825563005845565/BONK.png');
        msg.channel.send(attachment);
     }
+    msgsCommandArray.push('!bonk');
+    if(str.includes('!cringe') && !user.bot){
+        msg.channel.send('https://pbs.twimg.com/media/EF_SLiCXkAACM6n.jpg');
+    }
+    msgsCommandArray.push('!cringe');
 
     //FAC
     if(str.includes('!fac') && !user.bot){
@@ -192,20 +206,34 @@ client.on('message', async (msg) => {
             }
         });
     }
+    msgsCommandArray.push('!fac');
 
     //MENTIONS
     if(str.includes('!crack')){
        msg.reply('Debaixo da ponte tasse bem');
     }
+    msgsCommandArray.push('!crack');
+    if(str.includes('!hornydog') && !user.bot){
+       const attachment = new Discord.MessageAttachment(hornydog);
+       msg.reply(attachment);
+    }
+    msgsCommandArray.push('!hornydog');
     if(str.includes('!kekw')){
        msg.channel.send('https://tenor.com/view/lol-risitas-haha-laught-jaja-gif-14980367');
     }
+    msgsCommandArray.push('!kekw');
+    if(str.includes('!pog')){
+       msg.channel.send('https://tenor.com/view/pogchamp-shocked-intensified-gif-17946611');
+    }
+    msgsCommandArray.push('!pog');
+    msgsCommandArray.push('!conabot10000');
     if(str.includes('!conabot10000') || str.includes('!bot') || str.includes('!conabot')){
        msg.reply('hey there ; ) https://tenor.com/view/drinking-smile-funny-smile-juice-old-man-gif-3865079');
     }
     else if(str.includes('!cona') && !user.bot){
        msg.reply('cona123 ya KKKKKKKKKKKKKKKKKKKKKKK');
     }
+    msgsCommandArray.push('!cona');
 
     //AUDIO
     if(str.includes('!join') && !user.bot){          //!join
@@ -216,12 +244,14 @@ client.on('message', async (msg) => {
         }
         msg.channel.send('AYYYYYYYYYYYYY WHAT THE FUCK IS UP');
     }
+    audioCommandArray.push('!join');
     if(str.includes('!exit') && !user.bot && voiceServer!=undefined){                     //!exit
         voiceServer.disconnect();
         var sad = client.emojis.cache.get('752177402372817006');
         msg.channel.send(`XAU AI FIASPUTAS ${sad}`);
         voiceServer=undefined;
     }
+    audioCommandArray.push('!exit');
     if(str.includes('!play') && str.includes('youtube.com') && !user.bot && voiceServer!=undefined){           //play - links
         var arr = msg.content.split(' ');
         var link;
@@ -253,15 +283,19 @@ client.on('message', async (msg) => {
             client.player.play(msg, `${link}`);
         }
     }
+    audioCommandArray.push('!play');
     if(str.includes('!stop') && !user.bot){                                             //!stop
         client.player.pause(msg);
     }
+    audioCommandArray.push('!stop');
     if(str.includes('!skip') && !user.bot){                                              //!skip
         client.player.skip(msg);
     }
+    audioCommandArray.push('!skip');
     if(str.includes('!resume') && !user.bot){                                             //!stop
         client.player.resume(msg);
     }
+    audioCommandArray.push('!resume');
     if(str.includes('!queue') && !user.bot){                                            //queue
         var queue = client.player.getQueue(msg).tracks;
         var str = '***conabot10000 queue ya kkkkkkkkkkkkkkkkkkk***\n`';
@@ -275,6 +309,23 @@ client.on('message', async (msg) => {
         }
         str = str.concat('`');
         msg.channel.send(str);
+    }
+    audioCommandArray.push('!queue');
+    audioCommandArray.push('!help');
+    if(str.includes('!help') && !user.bot){
+        var str = '***Mensagens***\n```\n';
+        for(i in msgsCommandArray){
+            str = str.concat(`\t${msgsCommandArray[i]}\n`);
+        }
+        str = str.concat('```\n***Audio***\n```\n');
+        for(i in audioCommandArray){
+            str = str.concat(`\t${audioCommandArray[i]}\n`);
+        }
+        str = str.concat('```');
+        var emb = new Discord.MessageEmbed()
+            .setColor("DARK_GOLD")
+            .setDescription(str);
+        msg.channel.send(emb);
     }
 });
 client.login('');
