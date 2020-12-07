@@ -69,4 +69,5 @@ let nojentos = [
 	'https://www.comregras.com/wp-content/uploads/2018/10/praxe.png',
 	'www.esquerda.net/sites/default/files/styles/480y/public/477460240_c24dba5d2e_0_4.jpg'
 ]
-module.exports = { priestsarr, aggrPriests, nojentos, faculdade};
+let hornydog = dir.concat('/hornyDOG_HD.mp4');
+module.exports = { priestsarr, aggrPriests, nojentos, faculdade, hornydog };
