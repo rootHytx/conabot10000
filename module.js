@@ -69,5 +69,34 @@ let nojentos = [
 	'https://www.comregras.com/wp-content/uploads/2018/10/praxe.png',
 	'www.esquerda.net/sites/default/files/styles/480y/public/477460240_c24dba5d2e_0_4.jpg'
 ]
+
 let hornydog = dir.concat('/hornyDOG_HD.mp4');
-module.exports = { priestsarr, aggrPriests, nojentos, faculdade, hornydog };
+
+let msgsCommandArray = [];
+let audioCommandArray = [];
+
+msgsCommandArray.push('!github');
+msgsCommandArray.push('!nojentos');
+msgsCommandArray.push('!autista');
+msgsCommandArray.push('!bruh');
+msgsCommandArray.push('!puta');
+msgsCommandArray.push('!bonk');
+msgsCommandArray.push('!cringe');
+msgsCommandArray.push('!fac');
+msgsCommandArray.push('!crack');
+msgsCommandArray.push('!hornydog');
+msgsCommandArray.push('!kekw');
+msgsCommandArray.push('!pog');
+msgsCommandArray.push('!conabot10000');
+msgsCommandArray.push('!cona');
+
+audioCommandArray.push('!join');
+audioCommandArray.push('!exit');
+audioCommandArray.push('!play');
+audioCommandArray.push('!stop');
+audioCommandArray.push('!skip');
+audioCommandArray.push('!resume');
+audioCommandArray.push('!queue');
+audioCommandArray.push('!help');
+
+module.exports = { priestsarr, aggrPriests, nojentos, faculdade, hornydog, msgsCommandArray, audioCommandArray };
